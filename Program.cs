@@ -28,3 +28,43 @@ async Task<IResult> CreateEBookAsync(DataContext context)
 {
     return Results.Ok();
 }
+
+async Task<IResult> ObtainEBooksAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> FilterEBooksAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> ObtainEBookByIDAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> UpdateEBookAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> ProvideEBookAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> IncrementStockAEbookAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> BuyEBookAsync(DataContext context){
+
+    return Results.Ok();
+}
+
+async Task<IResult> DeleteEBookAsync(DataContext context){
+
+    return Results.Ok();
+}
