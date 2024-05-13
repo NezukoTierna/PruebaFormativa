@@ -46,15 +46,15 @@ async Task<IResult> CreateEBookAsync([FromBody] AddEbookDTO addEbookByDTO , Data
 }
 
 
-async Task<IResult> ObtainEBooksAsync(DataContext context){
+async Task<List<EBook>> ObtainEBooksAsync(DataContext context){
 
     List<EBook> eBooks = await context.EBooks.OrderBy(e => e.Title).ToListAsync();
 
-    return Results.Ok(eBooks);
+    return eBooks;
     
 }
 
-async Task<IResult> FilterEBooksAsync(string Author, string Format, string Genre, DataContext context){
+async Task<List<EBook>> FilterEBooksAsync(string Author, string Format, string Genre, DataContext context){
 
     List<EBook> eBooks = await context.EBooks
         .Where(e => e.Format.Contains(Format) &&
@@ -62,17 +62,29 @@ async Task<IResult> FilterEBooksAsync(string Author, string Format, string Genre
         .OrderBy(e => e.Title)
         .ToListAsync();
 
-    return Results.Ok(eBooks);
+    return eBooks;
 }
 
-async Task<IResult> ObtainEBookByIDAsync(DataContext context){
+async Task<IResult> ObtainEBookByIDAsync(int id,DataContext context){
 
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.FindAsync(id);
+    if(eBook == null) Results.BadRequest("ese libro no existe");
+   
+    return Results.Ok(eBook);
 }
 
-async Task<IResult> UpdateEBookAsync(DataContext context){
+async Task<IResult> UpdateEBookAsync(int id, AddEbookDTO ebookDTO, DataContext context){
 
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.FindAsync(id);
+    if(eBook == null) Results.BadRequest("ese libro no existe");
+
+    eBook.Title = ebookDTO.Title;
+    eBook.Author = ebookDTO.Author;
+    eBook.Genre = ebookDTO.Genre;
+    eBook.Format = ebookDTO.Format;
+    eBook.Price = ebookDTO.Price;
+
+    return Results.NoContent();
 }
 
 async Task<IResult> ProvideEBookAsync(DataContext context){
