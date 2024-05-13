@@ -95,7 +95,7 @@ async Task<IResult> ProvideEBookAsync(int id, DataContext context){
     eBook.IsAvailable = !eBook.IsAvailable;
 
     await context.SaveChangesAsync();
-    return Results.Ok("Ese Ebook ha cambiado su disponibilidad");
+    return Results.Ok("Ese Ebook ha cambiado su disponibilidad: " + eBook.IsAvailable);
 }
 
 async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataContext context){
@@ -110,7 +110,19 @@ async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataCon
 
 async Task<IResult> BuyEBookAsync([FromBody] PurchaseDTO purchaseDTO, DataContext context){
 
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.FindAsync(purchaseDTO.Id);
+    if(eBook == null) return Results.BadRequest("ese libro no existe");
+
+    if(eBook.Stock < purchaseDTO.quantity) return Results.BadRequest("No se puede comprar más de lo que hay");
+    int total = eBook.Price * purchaseDTO.quantity;
+    if(purchaseDTO.pay < total) return Results.BadRequest("Tiene que pagar esa cantidad, no hay descuento");
+
+    int returned = purchaseDTO.pay - total;
+
+    eBook.Stock = eBook.Stock - purchaseDTO.quantity;
+
+    await context.SaveChangesAsync();
+    return Results.Ok("Libro comprado, tu vuelto es: " + returned);
 }
 
 async Task<IResult> DeleteEBookAsync(int id, DataContext context){
