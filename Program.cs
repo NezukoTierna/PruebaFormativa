@@ -68,7 +68,7 @@ async Task<List<EBook>> FilterEBooksAsync(string Author, string Format, string G
 async Task<IResult> ObtainEBookByIDAsync(int id,DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(id);
-    if(eBook == null) Results.BadRequest("ese libro no existe");
+    if(eBook == null) return Results.BadRequest("ese libro no existe");
    
     return Results.Ok(eBook);
 }
@@ -76,7 +76,7 @@ async Task<IResult> ObtainEBookByIDAsync(int id,DataContext context){
 async Task<IResult> UpdateEBookAsync(int id, AddEbookDTO ebookDTO, DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(id);
-    if(eBook == null) Results.BadRequest("ese libro no existe");
+    if(eBook == null) return Results.BadRequest("ese libro no existe");
 
     eBook.Title = ebookDTO.Title;
     eBook.Author = ebookDTO.Author;
@@ -91,7 +91,7 @@ async Task<IResult> UpdateEBookAsync(int id, AddEbookDTO ebookDTO, DataContext c
 async Task<IResult> ProvideEBookAsync(int id, DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(id);
-    if(eBook == null) Results.BadRequest("ese libro no existe");
+    if(eBook == null) return Results.BadRequest("ese libro no existe");
     eBook.IsAvailable = !eBook.IsAvailable;
 
     await context.SaveChangesAsync();
@@ -101,7 +101,7 @@ async Task<IResult> ProvideEBookAsync(int id, DataContext context){
 async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(id);
-    if(eBook == null) Results.BadRequest("ese libro no existe");
+    if(eBook == null) return Results.BadRequest("ese libro no existe");
     eBook.Stock = eBook.Stock + stockDTO.Stock;
 
     await context.SaveChangesAsync();
@@ -116,7 +116,7 @@ async Task<IResult> BuyEBookAsync(DataContext context){
 async Task<IResult> DeleteEBookAsync(int id, DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(id);
-    if(eBook == null) Results.BadRequest("ese libro no existe");
+    if(eBook == null) return Results.BadRequest("ese libro no existe o fue eliminado");
     context.EBooks.Remove(eBook);
     await context.SaveChangesAsync();
     return Results.Ok("El objeto ha sido eliminado");
