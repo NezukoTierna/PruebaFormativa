@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "87c79b0b-9f1a-4399-8382-c38a57db62d0",
+		"name": "PruebaCatedraIDWM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25748462"
+	},
+	"item": [
+		{
+			"name": "Ebooks",
+			"item": [
+				{
+					"name": "ObtainAllEBooks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddEbook1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Title\": \"El hobbit\",\r\n    \"Author\": \"J.R.R. Tolkien\",\r\n    \"Genre\": \"Fantasía\",\r\n    \"Format\": \"Impreso\",\r\n    \"Price\": 20\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddEbook2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Title\": \"Hazlo tan bien que no puedan ignorarte\",\r\n    \"Author\": \"Cal Newport\",\r\n    \"Genre\": \"Desarrollo personal\",\r\n    \"Format\": \"Impreso\",\r\n    \"Price\": 25\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddEbook3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Title\": \"Hábitos Atómicos\",\r\n    \"Author\": \"James Clear\",\r\n    \"Genre\": \"Desarrollo personal\",\r\n    \"Format\": \"Impreso\",\r\n    \"Price\": 30\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterEbooks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/genre=Fantasía&author=J.R.R.&format=Impreso",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"genre=Fantasía&author=J.R.R.&format=Impreso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObtainEBook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/2",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEbook",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Title\": \"Hazlo tan bien que no puedan ignorarte\",\r\n    \"Author\": \"Cal Newport\",\r\n    \"Genre\": \"Desarrollo personal\",\r\n    \"Format\": \"Impreso\",\r\n    \"Price\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/2",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProvideEbook",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/2/change-availability",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"2",
+								"change-availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IncrementStockEBook",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Stock\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/2/increment-stock",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"2",
+								"increment-stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buyEbook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 2,\r\n    \"quantity\": 4,\r\n    \"pay\": 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/purchase",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEbook",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/ebook/3",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"ebook",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		}
+	]
+}
