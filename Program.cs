@@ -1,4 +1,5 @@
 using ebooks_dotnet7_api;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,17 +46,23 @@ async Task<IResult> CreateEBookAsync([FromBody] AddEbookDTO addEbookByDTO , Data
 }
 
 
-async Task<List<EBook>> ObtainEBooksAsync(DataContext context){
+async Task<IResult> ObtainEBooksAsync(DataContext context){
 
-    List<EBook> eBooks = await context.EBooks.ToListAsync();
+    List<EBook> eBooks = await context.EBooks.OrderBy(e => e.Title).ToListAsync();
 
-    return eBooks;
+    return Results.Ok(eBooks);
     
 }
 
-async Task<IResult> FilterEBooksAsync(DataContext context){
+async Task<IResult> FilterEBooksAsync(string Author, string Format, string Genre, DataContext context){
 
-    return Results.Ok();
+    List<EBook> eBooks = await context.EBooks
+        .Where(e => e.Format.Contains(Format) &&
+         e.Genre.Contains(Genre) && e.Author.Contains(Author))
+        .OrderBy(e => e.Title)
+        .ToListAsync();
+
+    return Results.Ok(eBooks);
 }
 
 async Task<IResult> ObtainEBookByIDAsync(DataContext context){
