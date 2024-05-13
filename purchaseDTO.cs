@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class purchaseDTO{
+public class PurchaseDTO{
     /// <summary>
     /// Unique identifier for the eBook.
     /// </summary>

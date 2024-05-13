@@ -108,7 +108,7 @@ async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataCon
     return Results.Ok("Stock añadido");
 }
 
-async Task<IResult> BuyEBookAsync(DataContext context){
+async Task<IResult> BuyEBookAsync([FromBody] PurchaseDTO purchaseDTO, DataContext context){
 
     return Results.Ok();
 }
