@@ -85,7 +85,7 @@ async Task<IResult> UpdateEBookAsync(int id, AddEbookDTO ebookDTO, DataContext c
     eBook.Price = ebookDTO.Price;
 
     await context.SaveChangesAsync();
-    return Results.NoContent();
+    return Results.Ok("Ese Ebook ha sido actualizado");
 }
 
 async Task<IResult> ProvideEBookAsync(int id, DataContext context){
@@ -95,7 +95,7 @@ async Task<IResult> ProvideEBookAsync(int id, DataContext context){
     eBook.IsAvailable = !eBook.IsAvailable;
 
     await context.SaveChangesAsync();
-    return Results.NoContent();
+    return Results.Ok("Ese Ebook ha cambiado su disponibilidad");
 }
 
 async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataContext context){
@@ -105,7 +105,7 @@ async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataCon
     eBook.Stock = eBook.Stock + stockDTO.Stock;
 
     await context.SaveChangesAsync();
-    return Results.NoContent();
+    return Results.Ok("Stock añadido");
 }
 
 async Task<IResult> BuyEBookAsync(DataContext context){
@@ -113,7 +113,11 @@ async Task<IResult> BuyEBookAsync(DataContext context){
     return Results.Ok();
 }
 
-async Task<IResult> DeleteEBookAsync(DataContext context){
+async Task<IResult> DeleteEBookAsync(int id, DataContext context){
 
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.FindAsync(id);
+    if(eBook == null) Results.BadRequest("ese libro no existe");
+    context.EBooks.Remove(eBook);
+    await context.SaveChangesAsync();
+    return Results.Ok("El objeto ha sido eliminado");
 }
