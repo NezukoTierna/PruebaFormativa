@@ -111,7 +111,7 @@ async Task<IResult> IncrementStockAEbookAsync(int id, stockDTO stockDTO, DataCon
 async Task<IResult> BuyEBookAsync([FromBody] PurchaseDTO purchaseDTO, DataContext context){
 
     EBook? eBook = await context.EBooks.FindAsync(purchaseDTO.Id);
-    if(eBook == null) return Results.BadRequest("ese libro no existe");
+    if(eBook == null || eBook.IsAvailable == false) return Results.BadRequest("ese libro no esta disponible");
 
     if(eBook.Stock < purchaseDTO.quantity) return Results.BadRequest("No se puede comprar más de lo que hay");
     int total = eBook.Price * purchaseDTO.quantity;
