@@ -38,15 +38,19 @@ async Task<IResult> CreateEBookAsync([FromBody] AddEbookDTO addEbookByDTO , Data
         IsAvailable = true,
         Stock = 0
     };
+    await context.AddAsync(newEBook);
+    await context.SaveChangesAsync();
     
     return Results.Ok(newEBook);
 }
 
 
-async Task<IResult> ObtainEBooksAsync(DataContext context){
+async Task<List<EBook>> ObtainEBooksAsync(DataContext context){
 
     List<EBook> eBooks = await context.EBooks.ToListAsync();
-    return Results.Ok(ebooks);
+
+    return eBooks;
+    
 }
 
 async Task<IResult> FilterEBooksAsync(DataContext context){
