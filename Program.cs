@@ -12,7 +12,7 @@ var ebooks = app.MapGroup("api/ebook");
 // TODO: Add more routes
 ebooks.MapPost("/", CreateEBookAsync);
 ebooks.MapGet("/", ObtainEBooksAsync);
-ebooks.MapGet("/?genre={genre}&author={author}&format={format}", FilterEBooksAsync);
+ebooks.MapGet("/genre={genre}&author={author}&format={format}", FilterEBooksAsync);
 ebooks.MapGet("/{id}", ObtainEBookByIDAsync);
 ebooks.MapPut("/{id}", UpdateEBookAsync);
 ebooks.MapPut("/{id}/change-availability", ProvideEBookAsync);
@@ -24,14 +24,29 @@ ebooks.MapDelete("/{id}", DeleteEBookAsync);
 app.Run();
 
 // TODO: Add more methods
-async Task<IResult> CreateEBookAsync(DataContext context)
+async Task<IResult> CreateEBookAsync([FromBody] AddEbookDTO addEbookByDTO , DataContext context)
 {
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.Where(e => e.Title == addEbookByDTO.Title && e.Author == addEbookByDTO.Author).FirstOrDefaultAsync();
+    if (eBook != null) return Results.BadRequest("Ya existe un libro como este");
+
+    EBook newEBook = new EBook{
+        Title = addEbookByDTO.Title,
+        Author = addEbookByDTO.Author,
+        Genre = addEbookByDTO.Genre,
+        Format = addEbookByDTO.Format,
+        Price = addEbookByDTO.Price,
+        IsAvailable = true,
+        Stock = 0
+    };
+    
+    return Results.Ok(newEBook);
 }
+
 
 async Task<IResult> ObtainEBooksAsync(DataContext context){
 
-    return Results.Ok();
+    List<EBook> eBooks = await context.EBooks.ToListAsync();
+    return Results.Ok(ebooks);
 }
 
 async Task<IResult> FilterEBooksAsync(DataContext context){
