@@ -84,12 +84,18 @@ async Task<IResult> UpdateEBookAsync(int id, AddEbookDTO ebookDTO, DataContext c
     eBook.Format = ebookDTO.Format;
     eBook.Price = ebookDTO.Price;
 
+    await context.SaveChangesAsync();
     return Results.NoContent();
 }
 
-async Task<IResult> ProvideEBookAsync(DataContext context){
+async Task<IResult> ProvideEBookAsync(int id, DataContext context){
 
-    return Results.Ok();
+    EBook? eBook = await context.EBooks.FindAsync(id);
+    if(eBook == null) Results.BadRequest("ese libro no existe");
+    eBook.IsAvailable = !eBook.IsAvailable;
+
+    await context.SaveChangesAsync();
+    return Results.NoContent();
 }
 
 async Task<IResult> IncrementStockAEbookAsync(DataContext context){
